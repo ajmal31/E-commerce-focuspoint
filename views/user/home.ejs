@@ -281,9 +281,9 @@
                         <% data.forEach(element=> { %>
                         <div class="card-1">
                             <figure class=" img-hover-scale overflow-hidden">
-                                <a href="/shop/<%= element._id %>"><img src="/images/<%= element.image[0] %>" alt=""></a>
+                                <a href="/shop/<%= element.name %>"><img src="/images/<%= element.image[0] %>" alt=""></a>
                             </figure>
-                            <h5><a href="/shop/<%= element._id %>"><%= element.name %></a></h5>
+                            <h5><a href="/shop/<%= element.name %>"><%= element.name %></a></h5>
                         </div>
                         <% }) %>
                         <!-- <div class="card-1">
