@@ -1,0 +1,13 @@
+module.exports={
+    db_name:'GUN_RACE',
+    userCollection:'users1',
+    adminCollection:'admin',
+    productCollection:'guns',
+    categoryCollection:'guns_category',
+    cartCollection:'userCart',
+    addressCollection:'Address',
+    ordersCollection:'orders',
+    coupenCollection:'coupons',
+    wishlistCollection:'wishlist',
+    walletCollection:'wallet',
+}

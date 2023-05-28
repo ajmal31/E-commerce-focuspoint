@@ -1,0 +1,51 @@
+<%-include('../layouts/admin-header')%>
+
+
+    <div class="col-lg-6">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4>Basic</h4>
+            </div>
+            <div class="card-body">
+
+
+        <form action="/admin/AddCategoryOffer/<%= catId %>" method="post">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="mb-4">
+
+
+                            <label class="form-label">
+                                <h4>offer Percentage</h4>
+                            </label>
+
+                            <div class="row gx-2">
+                                <input placeholder="" type="number" required name="percentage" class="form-control">
+                            </div>
+                            <br>
+                            <label class="form-label">OfferPrice expiry Date</label>
+                            <div class="row gx-2">
+                                <input placeholder="₹" type="date" required name="offerexpire" class="form-control">
+                            </div>
+                            <br>
+
+
+                            <!-- <label class="form-label">Category</label> -->
+                            <!-- 
+                        <select class="form-select" name="category">
+                            
+                         
+                            
+                        </select> -->
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                    </div>
+                </div>
+                 <button type="submit" class="btn btn-md rounded font-sm hover-up">Confirm</button>
+            </form>
+               
+            </div>
+        </div> <!-- card end// -->
+    </div>
+    <%-include('../layouts/adminFooter')%>

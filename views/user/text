@@ -1,0 +1,218 @@
+                                
+                                 <% userAddress.forEach(element => { %>
+                                    <p>Name:&nbsp;<%= element.name %> </p>
+                                    <p>Address:&nbsp;<%=  element.address%> </p>
+                                    <p>State:&nbsp;<%= element.state %> </p>
+                                    <p> Pincode:&nbsp;<%= element.pincode %> </p>
+                                    <p> Phone:&nbsp;<%= element.phone %> </p>
+                                <% }) %>
+
+
+                                <table class="table shopping-summery text-center clean">
+                                        <h4 class="text-right"><a href="/getAllOrders"><u>Your Orders</u></a></h4>
+                                        <thead>
+                                          <tr class="main-heading">
+                                            <th scope="col">Image</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Price</th>
+                                            <th scope="col">Quantity</th>
+                                            <th scope="col">Subtotal</th>
+                                            <th scope="col">Remove</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          <% let total=0 %>
+                                          <% data.forEach(element => { %>
+                                            <% let price = Number(element.products.price) %>
+                                            <% let subtotal = element.quantity * price %>
+                                            <% total += subtotal %>
+                                            <tr>
+                                              <td class="align-middle"><img src="/images/<%=element.products.image[0]%>" alt="#"></td>
+                                              <td class="align-middle"><%= element.products.title %></td>
+                                              <td class="align-middle">₹<%= element.products.price %></td>
+                                              <td class="align-middle">
+                                                <form action="/cartupdate" method="post">
+                                                  <input type="number" name="qty" id="quantity" onclick="countupdate('<%=element.quantity%>','<%=element.pid%>')" value="<%=element.quantity%>" style="width:5em;" min="1" max="">
+                                                  <button type="submit" id="qtyBtn" style="display:none;">Update</button>
+                                                </form>
+                                              </td>
+                                              <td class="align-middle">₹<%=subtotal%></td>
+                                              <td class="align-middle">
+                                                <a class="text-muted" onclick="confirmRemove('<%=element.pid%>')"><i class="fi-rs-trash"></i></a>
+                                              </td>
+                                            </tr>
+                                          <% }) %>
+                                          <tr>
+                                            <td colspan="4" class="text-right"><strong>Total:</strong></td>
+                                            <td colspan="2" class="text-left">₹<%=total%></td>
+                                          </tr>
+                                          <tr>
+                                            <td colspan="6" class="text-end">
+                                              <a href="#" class="text-muted"><i class="fi-rs-cross-small"></i> Clear Cart </a>
+                                            </td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                      
+                                </div>
+                                <div class="cart-action text-end">
+                                    <!-- <a class="btn  mr-10 mb-sm-15"><i class="fi-rs-shuffle mr-10"></i>Update Cart</a> -->
+                                    <a class="btn " href="/"><i class="fi-rs-shopping-bag mr-10"></i>Continue
+                                        Shopping</a>
+                                </div>
+                                <div class="divider center_icon mt-50 mb-50"><i class="fi-rs-fingerprint"></i></div>
+                                <div class="row mb-50">
+
+                                    <div class="col-lg-6 col-md-12">
+
+                                    </div>
+                                    <div class="col-lg-6 col-md-12">
+                                        <div class="border p-md-4 p-30 border-radius cart-totals">
+                                            <div class="heading_s1 mb-3">
+                                                <h4>Cart Totals</h4>
+                                            </div>
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                    <tbody>
+
+
+                                                        <tr>
+                                                            <td class="cart_total_label"> </td>
+                                                            <td class="cart_total_amount"><span
+                                                                    class="font-lg fw-900 text-brand">₹ </span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="cart_total_label">Shipping</td>
+                                                            <td class="cart_total_amount"> <i class="ti-gift mr-5"></i>
+                                                                Free Shipping</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="cart_total_label">Total</td>
+                                                            <td class="cart_total_amount"><strong><span
+                                                                        class="font-xl fw-900 text-brand">
+                                                                        <%=total %>
+                                                                    </span></strong></td>
+                                                        </tr>
+
+                                                    </tbody>
+                                                </table>
+
+
+
+
+                                                var express = require('express');
+var router = express.Router();
+let userController=require('../controllers/user-controller')
+const auth=require('../auth/userAuth')
+/* GET users listing. */
+
+//get signup page
+router.get('/signUp',userController.getSignUp)
+
+//get home page
+router.get('/',userController.getHome)
+
+//post sighnup details
+ router.post('/signupDetails',userController.postSignup)
+
+// get login
+router.get('/login',userController.getLogin)
+
+//GET LOGOUT
+router.get('/logout',userController.getLogout)
+
+//post login
+router.post('/loginDetails',userController.postLogin)
+
+//GET LOGOUT
+router.get('/logout',userController.getLogout)       
+
+//GET CART PAGE
+router.get('/cart',auth.userAuthentication,userController.getCart)
+
+// GET otp login
+router.get('/otplogin',userController.otpLogin)
+
+// POST CHECK NUMBER
+router.post('/checknumber',userController.checkNumber)
+
+//GET OTP PAGE
+router.get('checkotp',userController.getCheckOtp)
+
+// POST CHECK OTP
+router.post('/checkotp',userController.postCheckOtp)
+
+//GET PRODUCTS BASED CATEGORY
+router.get('/shop/:id',userController.getShop)
+
+//GET ADD TO CART
+router.get('/addToCart/:id', auth.userAuthentication,userController.addToCart )
+
+//VIEW PRODUCT DETAILS
+router.get('/productDetails/:id',userController.viewProductDetails)
+
+//GET CHECK OUT
+router.get('/checkout/:id',auth.userAuthentication ,userController.getCheckout)
+
+//GET FORGOT PASSWORD
+router.get('/forgotPassword',userController.getForgotPassword)
+
+//CHANGE CART COUNT
+router.post('/cartCountUpdate',auth.userAuthentication,userController.postCartCount)
+
+//REMOVE PRODUCT IN CART
+router.post('/removeProduct',userController.getRemoveCartProduct)
+
+//GET ALL PRODUCTS
+router.get('/getAllProducts',userController.getAllProducts)
+
+//GET ALL PRODUCTS IN WISH LIST
+router.get('/getAllwishlistProducts',auth.userAuthentication,userController.getAllWishListProducts)
+
+//ADD WISH LIST
+router.get('/addWishList/:id',auth.userAuthentication,userController.addWishList )
+
+
+//GET USER PROFILE
+
+router.get('/userProfile',auth.userAuthentication,userController.getUserProfile)
+
+// POST ADD ADDRESS
+router.post('/addAddress',auth.userAuthentication , userController.postAddAddress)
+
+//POST PLACE ORDER 
+router.post('/placeOrder',auth.userAuthentication,userController.postPlaceOrder)
+
+//GET ALL ORDERS
+router.get('/getAllOrders',auth.userAuthentication, userController.getAllOrders)
+
+//VIEW MORE
+router.get('/viewmore/:id',auth.userAuthentication, userController.getViewmore)
+
+
+//DELETE ADDRESS
+router.get('/deleteAddress/:id', auth.userAuthentication, userController.getDeleteAddress)
+
+router.get('/orderSuccess',auth.userAuthentication,userController.getOrderSuccess)
+
+//VERIFYPAYMENT
+router.post('/verifyPayment',auth.userAuthentication, userController.postVerifyPayment)
+
+//COUPON APPLYING
+router.post('/applyCoupon', auth.userAuthentication, userController.postApplyCoupon )
+
+router.get('/removeCoupon',auth.userAuthentication, userController.getRemoveCoupon)
+
+
+//CANCELORDER
+router.get('/cancelOrder/:id',auth.userAuthentication,userController.getCancelOrder)
+
+//RETURN OERDER
+router.get('/returnOrder/:id',auth.userAuthentication,userController.getReturnOrder)
+
+router.get('/wallet',auth.userAuthentication,userController.getWallet)
+module.exports = router;
+
+
+
+

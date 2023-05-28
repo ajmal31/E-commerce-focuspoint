@@ -1,0 +1,32 @@
+<%- include('../layouts/user-header') %>
+
+<section style="margin-top: 60px; margin-bottom: 60px;">
+    <div class="container">
+      <table class="table mt-5" id="ordersTable" style="border-collapse: collapse;">
+        <thead>
+          <tr>
+            <th scope="col">Order</th>
+            <th scope="col">Date</th>
+            <th scope="col">Payment</th>
+            <th scope="col">Status</th>
+            <th scope="col">Total</th>
+            <!-- <th scope="col">Actions</th> -->
+          </tr>
+        </thead>
+        <tbody> 
+          <% allOrders.forEach(element => { %>
+            <tr>
+              <td><%= element._id %></td>
+              <td><%= element.date %></td>
+              <td><%= element.payment_method %></td>
+              <td><%= element.payment_status %></td>
+              <td>₹<%= element.total_amount %></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </section>
+  
+
+<%- include('../layouts/user-footer') %>

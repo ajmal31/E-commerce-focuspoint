@@ -1,0 +1,163 @@
+<%- include('../layouts/admin-header') %>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+  <section class="content-main">
+    <div class="content-header">
+      <div>
+        <h2 class="content-title card-title">Products List </h2>
+      </div>
+    </div>
+    <div class="card mb-4">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-hover" id="productsTable">
+            <thead>
+              <tr>
+                <th>Image</th>
+                <th scope="col">Product Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Price</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Category</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% data.forEach(product=> { %>
+                <tr>
+                  <td><img src="/images/<%= product.image[0] %>" style="width:50px;height:50px;" alt=""></td>
+                  <td><b>
+                      <h5>
+                        <%= product.title %>
+                      </h5>
+                    </b></td>
+                  <td>
+                    <h5>
+                      <%= product.description %>
+                    </h5>
+                  </td>
+                  <td>
+                    <h5>
+                      <%= product.price %>
+                    </h5>
+                  </td>
+                  <td>
+                    <h5>
+                      <%= product.quantity %>
+                    </h5>
+                  </td>
+                  <td>
+                    <h5>
+                      <%= product.category %>
+                    </h5>
+                  </td>
+                  <td>
+                    <a href="/admin/editProduct/<%= product._id %>" class="btn btn-md rounded font-sm"
+                      type="submit">EDIT<i class="ri-edit-2-line"></i></a>
+                    <a href="/admin/deleteProduct/<%= product._id %>" id="deleteBtn"
+                      class="btn btn-md rounded font-sm p-0 px-2"
+                      style="background-color: rgb(188, 4, 4); height: 35px;">
+                      <h3 style="color: white;">&#128465;</h3><i class="ri-delete-bin-5-line"></i>
+                    </a>
+                  </td>
+                </tr>
+                <% }) %>
+            </tbody>
+          </table>
+        </div> <!-- table-responsive //end -->
+      </div> <!-- card-body end// -->
+    </div> <!-- card end// -->
+  </section>
+
+
+  <style>
+    /* Styling for the search input */
+    .dataTables_filter input {
+      border: none;
+      border-bottom: 1px solid #ddd;
+      padding: 5px;
+      border-radius: 0;
+      box-shadow: none;
+      width: 250px;
+      font-size: 14px;
+      color: #333;
+    }
+  
+    /* Styling for the search input placeholder text */
+    .dataTables_filter label input::placeholder {
+      font-size: 14px;
+      color: #999;
+    }
+  
+    /* Styling for the pagination buttons */
+    .dataTables_paginate .paginate_button {
+      padding: 5px 10px;
+      border-radius: 3px;
+      margin-right: 5px;
+      color: #333;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      font-size: 14px;
+    }
+  
+    /* Styling for the active pagination button */
+    .dataTables_paginate .paginate_button.current {
+      color: #fff;
+      background-color: #007bff;
+      border-color: #007bff;
+    }
+  
+    /* Styling for the entries text */
+    .dataTables_length {
+      font-size: 14px;
+      color: #333;
+    }
+  
+    /* Styling for the full content of the DataTable */
+    .dataTables_wrapper {
+      font-size: 14px;
+      color: #333;
+    }
+  </style>
+   
+  <script>
+    var $j = jQuery.noConflict();
+    $j(document).ready(function () {
+      $j('#productsTable').DataTable();
+    });
+  </script>
+
+  <script>
+    var $j = jQuery.noConflict();
+    $j(document).ready(function () {
+      // Get a reference to the delete button
+      const deleteBtn = document.getElementById('deleteBtn');
+      // Add an event listener to the delete button
+      deleteBtn.addEventListener('click', (event) => {
+        // Prevent the default behavior of the link
+        event.preventDefault();
+        // Display a SweetAlert confirmation dialog
+        swal({
+          title: "Are you sure?",
+          text: "Once deleted, you will not be able to recover this product!",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+        })
+          .then((willDelete) => {
+            if (willDelete) {
+              // If the user confirms the deletion, redirect to the delete URL
+              window.location.href = deleteBtn.getAttribute('href');
+            } else {
+              // If the user cancels the deletion, do nothing
+              return false;
+            }
+          });
+      });
+
+    })
+  </script>
+  <%-include('../layouts/adminFooter')%>

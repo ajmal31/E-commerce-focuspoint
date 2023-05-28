@@ -1,0 +1,357 @@
+<%- include('../layouts/user-header') %>
+
+  <main class="main">
+
+    <% if (data.length===0) { %>
+      <div class="col-12 text-center">
+        <!-- <img src="https://cdni.iconscout.com/illustration/premium/thumb/empty-cart-5521508-4610092.png" alt=""> -->
+        <img
+          src="https://cdni.iconscout.com/illustration/premium/thumb/confusing-woman-due-to-empty-cart-4558760-3780056.png"
+          alt="">
+
+        <h4>Your cart is empty!</h4>
+        <br>
+        <a href="/getAllproducts" class="btn btn-primary">Shop Now</a>
+      </div>
+
+      <!-- code to display if condition is true -->
+      <% } else { %>
+        <!-- code to display if condition is false -->
+
+
+
+        <section class="mt-50 mb-50">
+          <div class="container">
+            <div class="row">
+              <div class="col-12">
+
+                <div class="table-responsive">
+
+                  <table class="table shopping-summery text-center clean">
+                    
+                    <thead>
+                      <tr class="main-heading">
+                        <th scope="col">Image</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Subtotal</th>
+                        <th scope="col">Remove</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      
+                        <% data.forEach((element,index)=> { %>
+                          <% console.log(index) %>
+                          
+                                <tr>
+                                  <td class="col-12 col-md-2 image"><a href="/productDetails/<%= element.pid %>"><img src="/images/<%=element.products.image[0]%>"
+                                      alt="#"></a></td>
+                                  <td class="col-12 col-md-3 product-des">
+                                    <h5 class="product-name"><a href="/ " class="text-muted">
+                                        <%= element.products.title %>
+                                      </a></h5>
+                                  </td>
+                                  <% let currentdate = new Date() %>
+                                  <% let expiry = new Date(element.products.offerExpire) %>
+                                  
+                                  <% if (element.products.offerExpire) { %>
+                                    <% if (currentdate < expiry) { %>
+                                     
+                                      <td class="col-6 col-md-2 price" data-title="Price">
+                                        <p id="price">₹<%= element.products.offerprice %></p>
+                                      </td>
+                                    <% } else { %>
+                                      
+                                      <td class="col-6 col-md-2 price" data-title="Price">
+                                        <p id="price">₹<%= element.products.price %></p>
+                                      </td>
+                                    <% } %>
+                                  <% } else { %>
+                                  
+                                    <td class="col-6 col-md-2 price" data-title="Price">
+                                      <p id="price">₹<%= element.products.price %></p>
+                                    </td>
+                                  <% } %>
+                                 
+                                  <!-- <td class="col-6 col-md-2 text-center">
+                                               
+                                                  <input class="itemqty form-control" type="number" name="qty" id="quantity" onchange="countupdate('<%=element.pid%>')" value="<%=element.quantity%>" min="1" max="">
+                                                 
+                                                
+                                              </td> -->
+
+                                  <!-- <td class="col-6 col-md-2 text-center">
+                                    <input class="itemqty form-control" type="number" name="qty" id="quantity_<%=element.pid%>" onchange="countupdate('<%=element.pid%>')" value="<%=element.quantity%>" min="1" max="<%= element.products.quantity %>">
+                                  </td> -->
+                                  <% if (element.products.offerExpire) { %>
+                                    <% if (currentdate < expiry) { %>
+
+                                    <td class="col-6 col-md-2 text-center">
+
+                                      <button class="cart-item-count mr-3 " style="background: none; border: none; font-weight: bolder; font-size:x-large;" onclick="countupdate( '<%=element.pid%>','<%=element.products.offerprice%>',-1 )" > &#8722; </button>
+                                    
+                                       <span id="<%= element.pid %>" style="background: none; border: none; font-weight: bolder; font-size:large;"><%= element.quantity %></span>
+                                       <button style="background: none; border: none; font-weight: bolder; font-size:x-large;" class="cart-item-count ml-3" onclick="countupdate( '<%=element.pid%>','<%=element.products.offerprice%>',1 )" > &#43; </button>
+  
+                                    </td>
+                                    <% } else { %>  
+
+                                      <td class="col-6 col-md-2 text-center">
+
+                                        <button class="cart-item-count mr-3 " style="background: none; border: none; font-weight: bolder; font-size:x-large;" onclick="countupdate( '<%=element.pid%>','<%=element.products.price%>',-1 )" > &#8722; </button>
+                                      
+                                        <span id="<%= element.pid %>" style="background: none; border: none; font-weight: bolder; font-size:large;"><%= element.quantity %></span>
+                                        <button style="background: none; border: none; font-weight: bolder; font-size:x-large;" class="cart-item-count ml-3" onclick="countupdate( '<%=element.pid%>','<%=element.products.price%>',1 )" > &#43; </button>
+    
+                                      </td>
+                                      <% } %>
+                                     <% } else { %>
+                                      <td class="col-6 col-md-2 text-center">
+
+                                        <button class="cart-item-count mr-3 " style="background: none; border: none; font-weight: bolder; font-size:x-large;" onclick="countupdate( '<%=element.pid%>','<%=element.products.price%>',-1 )" > &#8722; </button>
+                                      
+                                        <span id="<%= element.pid %>" style="background: none; border: none; font-weight: bolder; font-size:large;"><%= element.quantity %></span>
+                                        <button style="background: none; border: none; font-weight: bolder; font-size:x-large;"  class="cart-item-count ml-3" onclick="countupdate( '<%=element.pid%>','<%=element.products.price%>',1 )" > &#43; </button>
+    
+                                      </td>
+
+                                      <% } %>
+                                  
+                                  <td id="subtotal" class="col-6 col-md-2 text-right" data-title="Subtotal">
+                                    <% if (element.products.offerExpire) { %>
+                                      <% if (currentdate < expiry) { %>
+                                    <% var price=element.products.offerprice 
+                                      var quantity=element.quantity
+                                      var subtotal=price*quantity
+                                    %>
+                                     <% } else { %> 
+                                      <% var price=element.products.price 
+                                      var quantity=element.quantity
+                                      var subtotal=price*quantity
+                                    %>
+                                      <% } %>
+                                      <% } else { %>
+
+                                        <% var price=element.products.price 
+                                        var quantity=element.quantity
+                                        var subtotal=price*quantity
+                                      %>
+                                      <% } %>
+                                      <!-- <input class="text-center form-control" name="subtotal" id="subtotal-input" value="<%=subtotal%>" readonly> -->
+                                      <!-- <span class="text-center" id="subtotal<%= element.pid %>"><%=subtotal%></span> -->
+                                      <span class="text-center" id="subtotal_span<%= element.pid %>"><%= subtotal %></span>
+                                      <% console.log('span',element.pid) %>
+
+                                    
+                                    
+                                  </td>
+                                 
+                                  
+                                  <td class="col-6 col-md-1 action" data-title="Remove">
+                                    <a id="remove" onclick="confirmRemove('<%=element.pid%>')" class="text-muted">
+                                      <i class="fi-rs-trash"></i>
+                                    </a>
+                                  </td>
+                                </tr>
+                                <% }) %> 
+                                  <tr>
+                                    <td colspan="6" class="text-end">
+                                      <a href="# " class="text-muted"> <i class="fi-rs-cross-small"></i> Clear Cart </a>
+                                    </td>
+                                  </tr>
+                    </tbody>
+                  </table>
+
+                  <div class="cart-action text-end">
+                    <!-- <a class="btn  mr-10 mb-sm-15"><i class="fi-rs-shuffle mr-10"></i>Update Cart</a> -->
+                    <a class="btn " href="/"><i class="fi-rs-shopping-bag mr-10"></i>Continue
+                      Shopping</a>
+                  </div>
+                  <div class="col-lg-6 col-md-12">
+                    <div class="border p-md-4 p-30 border-radius cart-totals">
+                      <div class="heading_s1 mb-3">
+                        <h4>Cart Totals</h4>
+                      </div>
+                      <div class="table-responsive">
+                        <table class="table">
+                          <tbody>
+
+
+                            <tr>
+                              <td class="cart_total_label"> </td>
+                              <td class="cart_total_amount"><span class="font-lg fw-900 text-brand" id="temp-cart">₹ <%= cartTotal[0].cartTotal %> 
+                                </span></td>
+                            </tr>
+                            <tr>
+                              <td class="cart_total_label">Shipping</td>
+                              <td class="cart_total_amount"> <i class="ti-gift mr-5"></i>
+                                Free Shipping</td>
+                            </tr>
+                            <tr>
+                              <td class="cart_total_label">Total</td>
+                              <td class="cart_total_amount"><strong><span class="font-xl fw-900 text-brand" id="cart-total" >
+                                <%=cartTotal[0].cartTotal  %>  
+                                  </span></strong></td>
+                            </tr>
+
+                          </tbody>
+                        </table>
+
+                      </div>
+                      <a href="/checkout/<%= userdata._id %>" class="btn "> <i class="fi-rs-box-alt mr-10"></i>
+                        Proceed To CheckOut</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        <% } %>
+
+
+          <link rel="stylesheet" href="https://unpkg.com/sweetalert/dist/sweetalert.css">
+          <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+          <script>
+
+            // function countupdate(pid) {
+            //   let inputId = "quantity_" + pid;
+            //   let count = document.getElementById(inputId).value;
+              
+
+            //   $.ajax({
+            //     url: '/cartCountUpdate',
+            //     method: 'post',
+            //     data: { quantity: count, pid: pid },
+            //     success: (response) => {
+            //       // handle the AJAX response here
+            //       console.log("QUAAA");
+            //       if (response) {
+                   
+            //         location.href = '/cart';
+            //       }
+            //     }
+            //   });
+
+            //   // Don't use location.reload() here as it will reload the entire page
+            //   // Instead, update the cart count dynamically using JavaScript
+            //   let cartCount = document.getElementById('cart-count');
+            //   cartCount.innerHTML = count;
+            // }
+
+
+
+
+//  function countupdate(pid,price,count,) {
+//    quantity=document.getElementById(pid).innerHTML
+  
+//   $.ajax({
+//     url: '/cartCountUpdate',
+//     method: 'post',
+//     data: { count: count, pid: pid ,quantity:quantity},
+//     success: (response) => {  
+  
+//     if(response.response.remove)
+//     {
+//       alert('your product has been deleted')
+//       location.reload()
+//     }else{
+
+//        let temp=document.getElementById(pid).innerHTML=Number(quantity)+Number(count)
+//        document.getElementById('cart-total').innerHTML=response.cartTotal[0].cartTotal
+//        document.getElementById('temp-cart').innerHTML=response.cartTotal[0].cartTotal
+
+      
+//       let subtotal=temp*price
+//       console.log(subtotal)
+      
+//       document.getElementById('subtotal-span').textContent = subtotal;
+
+
+      
+//       //  document.getElementById('subtotal-input').innerHTML=
+//     }
+
+      
+//     }
+//   });
+// }
+
+
+function countupdate(pid, price, count) {
+  let quantity = document.getElementById(pid).innerHTML;
+
+  $.ajax({
+    url: '/cartCountUpdate',
+    method: 'post',
+    data: { count: count, pid: pid, quantity: quantity },
+    success: (response) => {
+      if (response.response.remove) {
+        alert('Your product has been deleted');
+        location.reload();
+      } else {
+        document.getElementById(pid).innerHTML = Number(quantity) + Number(count);
+        document.getElementById('cart-total').innerHTML = response.cartTotal[0].cartTotal;
+        document.getElementById('temp-cart').innerHTML = response.cartTotal[0].cartTotal;
+
+        let subtotal = (Number(quantity) + Number(count)) * price;
+        // document.getElementById('subtotal').textContent = subtotal;
+        document.getElementById('subtotal_span'+pid).textContent = subtotal;
+         console.log('inside of the ajax',element.pid)
+      }
+    }
+  });
+}
+
+$.ajaxSetup({
+  headers: {
+    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  }
+});
+
+
+
+            function confirmRemove(pid) {
+              swal({
+                title: "Are you sure?",
+                text: "Once deleted, you will not be able to recover this product!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+              })
+                .then((willDelete) => {
+                  if (willDelete) {
+                    console.log('enter 2ndajax')
+                    $.ajax({
+                      url: '/removeProduct',
+                      method: 'post',
+                      data: { pid: pid },
+                      success: (response) => {
+                        if(response)
+                        {
+                          location.href='/cart'
+                          // let remove = document.getElementById('remove');
+                          //  remove.innerHTML = response.products;
+                        }
+                        // Reload the data using AJAX and update the page without reloading
+                        //   loadData();
+
+
+                      }
+
+                    });
+                    
+                  }
+                });
+
+
+            }
+
+          </script>
+
+          <%- include('../layouts/user-footer') %>

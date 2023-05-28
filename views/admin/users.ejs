@@ -1,0 +1,111 @@
+<%-include('../layouts/admin-header')%>
+
+<section class="content-main">
+    <div class="content-header">
+        <div>
+            <h2 class="content-title card-title">All Users</h2>
+          
+        </div>
+        <!-- <div>
+            <input type="text" placeholder="Search order ID" class="form-control bg-white">
+        </div> -->
+    </div>
+    <div class="card mb-4">
+        <header class="card-header">
+            <div class="row gx-3">
+                <div class="col-lg-4 col-md-6 me-auto">
+                    <input type="text" placeholder="Search..." class="form-control">
+                </div>
+                <!-- <div class="col-lg-2 col-6 col-md-3">
+                    <select class="form-select">
+                        <option>Status</option>
+                        <option>Active</option>
+                        <option>Disabled</option>
+                        <option>Show all</option>
+                    </select>
+                </div>
+                <div class="col-lg-2 col-6 col-md-3">
+                    <select class="form-select">
+                        <option>Show 20</option>
+                        <option>Show 30</option>
+                        <option>Show 40</option>
+                    </select>
+                </div> -->
+            </div>
+        </header> <!-- card-header end// -->
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>#ID</th>
+                            <th scope="col">Username</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Phone</th>
+                            <th scope="col">Status</th>
+                            <th scope="col" class="text-middle"> Actions </th>
+                            <th scope="col">orders</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+ 
+
+            <%data.forEach(element=>{%>
+
+            
+
+                        <tr>
+                            <td>## </td>
+                            <td><h5><%= element.username %></h5></b></td>
+                            <td><h5><%= element.email%> </h5></td>
+                            <td><h5><%= element.phone%></h5></td>
+                            <% if (element.block) { %>
+                                <td><h5>Blocked</h3></td>
+                            <% } 
+                             else { %>
+                                <td><h5>Active</h3></td>
+                            <%}%>
+                            
+                              <%if(element.block){ %>
+                                <td>
+                                    <a href="/admin/unBlockUser/<%=element._id%> " class="btn btn-primary" style="background-color: gold; border: none; border-radius: 20px; padding: 6px 18px; color: black; font-size: 15px;">UnBlock</a>
+
+                            </td>
+                              <%}
+                              else{%>
+                                <td>
+                                <a href="/admin/blockUser/<%=element._id%> " class="btn btn-danger" style="background-color: red; border: none; border-radius: 20px; padding: 6px 18px; font-size: 15px;">Block</a>
+
+                                </td>
+
+                              <%}%>
+
+                              <td>
+                                    <a href="/admin/viewOrders" class="btn btn-primary" style="background-color: green; border: none; border-radius: 20px; padding: 6px 18px; color: whitesmoke; font-size: 15px;">View</a>
+
+                            </td>
+                            
+                        </tr>
+                        <%})%>   
+                        
+
+
+
+
+
+
+                            
+
+
+                            
+                            
+                    </tbody>
+                </table>
+            </div> <!-- table-responsive //end -->
+        </div> <!-- card-body end// -->
+    </div> <!-- card end// -->
+   
+</section>
+
+<%-include('../layouts/adminFooter')%>

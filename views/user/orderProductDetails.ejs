@@ -1,0 +1,155 @@
+<%- include('../layouts/user-header') %>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+
+
+
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-lg-6 mb-3 mb-lg-0">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="mb-0">Address</h5>
+          </div>
+          <div class="card-body">
+            <p></p>
+            <address></address>
+            <p>Name:&nbsp;<%= address.name %>
+            </p>
+            <p>Address:&nbsp; <%= address.address %>
+            </p>
+            <p>State:&nbsp; <%= address.state %>
+            </p>
+            <p>Pincode:&nbsp;<%= address.country %>
+            </p>
+            <p>Pincode:&nbsp; <%= address.pincode %>
+            </p>
+            <p>Phone:&nbsp; <%= address.phone %>
+            </p>
+          </div>
+        </div>
+      </div>
+
+
+
+    </div>
+  </div>
+
+  <section class="mt-5 mb-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="table-responsive">
+            <table class="table shopping-summery text-center clean">
+              <thead>
+                <tr class="main-heading">
+                  <th scope="col">Image</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Quantity</th>
+                  <th scope="col">Subtotal</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% products.forEach(element=> { %>
+                  <% let price=Number(element.products.price) %>
+                    <% let quantity=element.quantity %>
+                      <% let Subtotal=element.quantity*price %>
+
+                        <tr>
+                          <td class="image"><img style="height: 50px; width: 50px;"
+                              src="/images/<%= element.products.image[0] %>" alt="#"></td>
+                          <td class="product-des">
+                            <h5 class="product-name"><a href="/ "></a>
+                              <%= element.products.title %>
+                            </h5>
+                          </td>
+                          <td class="price" data-title="Price">
+                            <p id="price">
+                              <%= element.products.price%>
+                            </p>
+                          </td>
+                          <td class="qty" data-title="qty">
+                            <p id="qty">
+                              <%=element.quantity %>
+                            </p>
+                          </td>
+                          <td class="qty" data-title="qty">
+                            <p id="qty">
+                              <%= Subtotal %>
+                            </p>
+                          </td>
+                          <% }) %>
+              </tbody>
+            </table>
+            <div style="text-align: right; padding-right: 100px;">
+              <h4 style="color: green;">Total:<%= total %>
+              </h4>
+              <br>
+              <% if (orderStatus==='pending' ||orderStatus==='shipped' ||orderStatus==='processing' ) { %>
+                <a href="/cancelOrder/<%= id %>" class="btn btn-danger" onclick="showConfirmDialog()">Cancel Order</a>
+
+
+                <% } %>
+                  <% if (orderStatus==='delivered' ) { %>
+                    <a href="/returnOrder/<%= id %>" class="btn btn-danger" onclick="orderReturn()">retrun Order </a>
+
+                    <% } %>
+                      <% if (orderStatus==='cancelled' ) { %>
+                        <h5 style="color: red;">Your orders has been deleted </h5>
+
+                        <% } %>
+                          <% if (orderStatus==='returnRequested' ) { %>
+                            <h5 style="color: red;">Your return request has been received..please wait confirmation
+                            </h5>
+
+                            <% } %>
+                              <% if (orderStatus==='returnConfirmed' ) { %>
+                                <h5 style="color: red;">Your return is successfull</h5>
+
+                                <% } %>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <script>
+    function showConfirmDialog() {
+      event.preventDefault(); // to prevent the default action of the link
+      swal({
+        title: "Are you sure?",
+        text: "Once cancelled, you will not be able to recover this order!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+        .then((willCancel) => {
+          if (willCancel) {
+            window.location.href = "/cancelOrder/<%= id %>";
+          }
+        });
+    }
+    function orderReturn() {
+      event.preventDefault(); // to prevent the default action of the link
+      swal({
+        title: "Are you sure?",
+        text: "Are you sure you want to return this product?",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+        .then((willCancel) => {
+          if (willCancel) {
+            window.location.href = "/returnOrder/<%= id %>";
+          }
+        });
+    }
+  </script>
+
+  <%- include('../layouts/user-footer') %>

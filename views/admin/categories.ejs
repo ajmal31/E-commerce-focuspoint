@@ -1,0 +1,160 @@
+<%- include('../layouts/admin-header') %>
+
+    <section class="content-main">
+        <div class="content-header">
+            <% if (catExist) { %>
+             <h3 style="color:red;">This Category Already Exist</h3>
+            <% }else{ %>
+            <div>
+                <h2 class="content-title card-title">Categories </h2>
+                <p>Add, edit or delete a category</p>
+
+
+            </div>
+            <% } %>
+            <div>
+                <input type="text" placeholder="Search Categories" class="form-control bg-white">
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <form action="/admin/addCategories" method="post" enctype="multipart/form-data">
+                            <div class="mb-4">
+                                <label class="form-label">Name</label>
+                                <input type="text" placeholder="Category Name" class="form-control" name="name"
+                                    required />
+                            </div>
+
+
+                            <!-- <div class="mb-4">
+                                <label class="form-label">Description</label>
+                                <textarea placeholder="Category Description" name="description" class="form-control"
+                                    required></textarea>
+                            </div> -->
+                            <div class="card mb-4">
+                                <div class="card-header">
+                                    <h4>Media</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="input-upload">
+                                        <img src="/admin-assets/imgs/theme/upload.svg" style="height:3cm;" id="img1"
+                                            alt="img">
+                                        <input class="form-control" name="image1" type="file" required
+                                            onchange="function5(event)">
+                                    </div>
+                                </div>
+                            </div>
+                            <script>
+                                function function5(event) {
+                                    document.getElementById('img1').src = URL.createObjectURL(event.target.files[0])
+
+                                }
+                            </script>
+                            <div class="d-grid">
+                                <button class="btn btn-primary" type="submit">Create category</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="table-responsive">
+
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" />
+                                            </div>
+                                        </th>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Description</th>
+                                        <th class="text-center" colspan="2">Actions</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+
+
+
+                                    <%response.forEach(element=>{%>
+
+
+                                        <tr>
+                                            <td class="text-center">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" />
+                                                </div>
+                                            </td>
+                                            <td></td>
+                                            <td>
+                                                <h4>
+                                                    <%= element.name %>
+                                                </h4>
+                                            </td>
+                                            <td>
+                                                <h4>
+                                                    <%= element.description %>
+                                                </h4>
+                                            </td>
+
+
+
+                                            <td class="text-end" rowspan="1">
+                                                <a class="btn btn-primary" href="/admin/editCategory/<%= element._id %>"
+                                                    alt="Edit">edit<i class="ri-edit-2-line"></i></a>
+                                                <!-- dropdown //end -->
+                                            </td>
+                                            <td>
+
+
+
+                                                <!-- <a class="btn btn-danger" alt="Delete" href="/admin/deleteCategory/<%= element._id %>">delete<i class="ri-delete-bin-6-line"></i></a> -->
+
+                                                <link rel="stylesheet"
+                                                    href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.css" />
+                                                <script
+                                                    src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+                                                <a class="btn btn-danger" alt="Delete"   href="/admin/deleteCategory/<%= element._id %>"    onclick="confirmDelete(event)">delete<i
+                                                        class="ri-delete-bin-6-line"></i></a>
+                                                        <td class="text-end" rowspan="1">
+                                                            <a class="btn btn-primary" href="/admin/categoryOffer/<%= element._id %>"
+                                                                alt="Edit">Offer<i class="ri-edit-2-line"></i></a>
+                                                            <!-- dropdown //end -->
+                                                        </td>       
+
+                                                <script>
+                                                    function confirmDelete(event) {
+                                                        event.preventDefault();
+                                                        swal({
+                                                            title: "Are you sure?",
+                                                            text: "Once deleted, you will not be able to recover this category!",
+                                                            icon: "warning",
+                                                            buttons: true,
+                                                            dangerMode: true,
+                                                        })
+                                                            .then((willDelete) => {
+                                                                if (willDelete) {
+                                                                    window.location.href = event.target.href;
+                                                                }
+                                                            });
+                                                    }
+                                                </script>
+
+
+                                            </td>
+                                        </tr>
+                                        <%})%>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div> <!-- .col// -->
+                </div> <!-- .row // -->
+            </div> <!-- card body .// -->
+        </div> <!-- card .// -->
+    </section>
+
+    <%-include('../layouts/adminFooter')%>

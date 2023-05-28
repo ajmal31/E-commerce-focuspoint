@@ -1,0 +1,104 @@
+<%- include('../layouts/user-header') %>
+
+   <% if (response.length===0) { %>
+    
+  
+    <div class="container">
+        <div class="row">
+            <div class="col d-flex justify-content-center">
+                <img  src="https://static.oxinis.com/healthmug/image/healthmug/empty-wishlist.webp" alt="" style="width: 750px;"> 
+                              
+            </div>
+        </div> 
+        <div class="row mt-0" >
+            <div class="col d-flex justify-content-center">
+                <a href="/getAllproducts" class="btn btn-primary">Make a wish</a>
+            </div>
+        </div>
+    </div>
+    <% }else{%>
+
+   
+ 
+   
+       
+        <main class="main">
+           
+                <!-- <div class="alert alert-success text-center" role="alert" id="alert">
+                    Item added to cart!
+                  </div>
+             
+           
+           
+                <div class="alert alert-warning text-center" role="alert" id="alert">
+                    Item already exists in cart
+                  </div> -->
+             
+            
+     
+            <section class="mt-50 mb-50">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="table-responsive">
+                                <table class="table shopping-summery text-center">
+                                    <thead>
+                                        <tr class="main-heading">
+                                            <th scope="col" colspan="2">Product</th>
+                                            <th scope="col">Price</th>
+                                            <th scope="col">Stock Status</th>
+                                            <th scope="col">Action</th>
+                                            <th scope="col">Remove</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                       
+                                         <% response.forEach(element => { %>
+                                          
+                                         
+                                      
+                                        <tr>
+                                            <% let image=element.products.image[0] %>
+                                            <td class="image product-thumbnail"><a href="/productDetails/<%= element.pid %>"><img src="/images/<%= image %>" alt="#"></td></a>
+                                            <td class="product-des product-name">
+                                                <h5 class="product-name"><a href="#"> <%= element.products.title %></a></h5>
+                                               
+                                            </td>
+                                            <td class="price" data-title="Price"><span><%= element.products.price %> </span></td>
+                                            <td class="text-center" data-title="Stock">
+                                               
+                                                <% let stock=element.products.quantity %>
+                                                <% if (stock>0) { %>
+
+                                                    <span class="color3 font-weight-bold">In Stock</span>
+                                                 
+                                                <% } else{%>
+
+                                                    <span class="text-danger font-weight-bold">Out of stock</span>
+                                               <% }%>
+                                                    
+                                                    
+                                                       
+                                                
+                                                
+                                            </td>
+                                            <% let pid=element.pid %>
+                                            <td class="text-right" data-title="Cart">
+                                                <a class="btn btn-sm" href="/addToCart/<%= pid %>"><i class="fi-rs-shopping-bag mr-5"></i>Add to cart</a>
+                                            </td>
+                                            <td class="action" data-title="Remove"><a href="/removeWishProduct/<%= pid %>"><i class="fi-rs-trash"></i></a></td>
+                                        </tr>
+                                        <% }) %>
+                                        
+                                       
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <% } %>
+<%- include('../layouts/user-footer') %>

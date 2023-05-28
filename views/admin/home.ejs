@@ -1,0 +1,415 @@
+<%-include('../layouts/admin-header') %>
+    <!-- <h1>helo admin home</h1>
+    <a href="/admin/salesReport">sale report</a>
+
+    <a href="admin/test-form">helo</a> -->
+
+    <section class="content-main">
+        <div class="content-header">
+            <div>
+                <h2 class="content-title card-title">Dashboard </h2>
+                <p>Whole data about your business here</p>
+            </div>
+            <div>
+                <a href="/admin/salesReport" class="btn btn-primary"><i
+                        class="text-muted material-icons md-post_add"></i>Create report</a>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center">
+            <div class="col-lg-3">
+                <div class="card card-body mb-4">
+                    <article class="icontext">
+                        <span class="icon icon-sm rounded-circle bg-primary-light"><i
+                                class="text-primary material-icons md-monetization_on"
+                                style="position: relative;top:12px;"></i></span>
+                        <div class="text">
+                            <h6 class="mb-1 card-title">Revenue</h6>
+                            <span>₹ <%= revenue[0].totalRevenue %> </span>
+                            <span class="text-sm">
+                                Shipping fees are not included
+                            </span>
+                        </div>
+                    </article>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card card-body mb-4">
+                    <article class="icontext">
+                        <span class="icon icon-sm rounded-circle bg-success-light"><i
+                                class="text-success material-icons md-local_shipping"
+                                style="position: relative;top:12px;"></i></span>
+                        <div class="text">
+                            <h6 class="mb-1 card-title">Orders</h6> <span>
+                                <%= ordersCount %>
+                            </span>
+                            <span class="text-sm">
+                                Total orders placed
+                            </span>
+                        </div>
+                    </article>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card card-body mb-4">
+                    <article class="icontext">
+                        <span class="icon icon-sm rounded-circle bg-warning-light"><i
+                                class="text-warning material-icons md-qr_code"
+                                style="position: relative;top:12px;"></i></span>
+                        <div class="text">
+                            <h6 class="mb-1 card-title">Products</h6> <span>
+                                <%= productsCount %>
+                            </span>
+                            <span class="text-sm">
+                                In <%= categoryCount %> Categories
+                            </span>
+                        </div>
+                    </article>
+                </div>
+            </div>
+            <!-- <div class="col-lg-3">
+            <div class="card card-body mb-4">
+                <article class="icontext">
+                    <span class="icon icon-sm rounded-circle bg-info-light"><i class="text-info material-icons md-shopping_basket" style="position: relative;top:12px;"></i></span>
+                    <div class="text">
+                        <h6 class="mb-1 card-title">Monthly Earning</h6> <span>$6,982</span>
+                        <span class="text-sm">
+                            Based in your local time.
+                        </span>
+                    </div>
+                </article>
+            </div>
+        </div> -->
+        <!-- Styles -->
+<style>
+    #chartdiv {
+      width: 100%;
+      height: 500px;
+    }
+    </style>
+    
+    <!-- Resources -->
+    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+    
+    <!-- Chart code -->
+    <script>
+    am5.ready(function() {
+    
+    // Create root element
+    // https://www.amcharts.com/docs/v5/getting-started/#Root_element
+    var root = am5.Root.new("chartdiv");
+    
+    
+    // Set themes
+    // https://www.amcharts.com/docs/v5/concepts/themes/
+    root.setThemes([
+      am5themes_Animated.new(root)
+    ]);
+    
+    
+    // Create chart
+    // https://www.amcharts.com/docs/v5/charts/xy-chart/
+    var chart = root.container.children.push(am5xy.XYChart.new(root, {
+      panX: true,
+      panY: true,
+      wheelX: "none",
+      wheelY: "none"
+    }));
+    
+    // We don't want zoom-out button to appear while animating, so we hide it
+    chart.zoomOutButton.set("forceHidden", true);
+    
+    
+    // Create axes
+    // https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
+    var xRenderer = am5xy.AxisRendererX.new(root, {
+      minGridDistance: 30
+    });
+    xRenderer.labels.template.setAll({
+      rotation: -90,
+      centerY: am5.p50,
+      centerX: 0,
+      paddingRight: 15
+    });
+    xRenderer.grid.template.set("visible", false);
+    
+    var xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(root, {
+      maxDeviation: 0.3,
+      categoryField: "country",
+      renderer: xRenderer
+    }));
+    
+    var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
+      maxDeviation: 0.3,
+      min: 0,
+      renderer: am5xy.AxisRendererY.new(root, {})
+    }));
+    
+    
+    // Add series
+    // https://www.amcharts.com/docs/v5/charts/xy-chart/series/
+    var series = chart.series.push(am5xy.ColumnSeries.new(root, {
+      name: "Series 1",
+      xAxis: xAxis,
+      yAxis: yAxis,
+      valueYField: "value",
+      categoryXField: "country"
+    }));
+    
+    // Rounded corners for columns
+    series.columns.template.setAll({
+      cornerRadiusTL: 5,
+      cornerRadiusTR: 5,
+      strokeOpacity: 0
+    });
+    
+    // Make each column to be of a different color
+    series.columns.template.adapters.add("fill", function (fill, target) {
+      return chart.get("colors").getIndex(series.columns.indexOf(target ));
+    });
+    
+    series.columns.template.adapters.add("stroke", function (stroke, target) {
+      return chart.get("colors").getIndex(series.columns.indexOf(target ));
+    });
+    
+    // Add Label bullet
+    series.bullets.push(function () {
+      return am5.Bullet.new(root, {
+        locationY: 1,
+        sprite: am5.Label.new(root, {
+          text: "{valueYWorking.formatNumber('#.')}",
+          fill: root.interfaceColors.get("alternativeText"),
+          centerY: 0,
+          centerX: am5.p50,
+          populateText: true
+        })
+      });
+    });
+    
+    // monthlyRevenueObject
+    // Set data
+    console.log('frontend')
+    var data = [{
+       "month": 'january' ,
+       "value": <%=monthlyRevenueObject.january%>,
+      "country": "february",
+      "value": <%=monthlyRevenueObject.february%>
+    }, {
+      "country": "march",
+      "value": <%=monthlyRevenueObject.march%>
+    }, {
+      "country": "April",
+      "value": <%=monthlyRevenueObject.april%>
+    }, {
+      "country": "May",
+      "value": <%=monthlyRevenueObject.may%>
+    }, {
+      "country": "June",
+      "value": <%=monthlyRevenueObject.june%>
+    }, {
+      "country": "July",
+      "value": <%=monthlyRevenueObject.july%>
+    }, {
+      "country": "August",
+      "value": <%=monthlyRevenueObject.august%>
+    }, {
+      "country": "September",
+      "value": <%=monthlyRevenueObject.september%>
+    }, {
+      "country": "October",
+      "value": <%=monthlyRevenueObject.october%>
+    }, {
+      "country": "Novemeber",
+      "value": <%=monthlyRevenueObject.november%>
+    }, {
+      "country": "December",
+      "value": <%=monthlyRevenueObject.december%>
+    }];
+    
+    xAxis.data.setAll(data);
+    series.data.setAll(data);
+    
+    // update data with random values each 1.5 sec
+    setInterval(function () {
+      updateData();
+    }, 1500)
+    
+    function updateData() {
+      am5.array.each(series.dataItems, function (dataItem) {
+        var value = dataItem.get("valueY") + Math.round(Math.random() * 300 - 150);
+        if (value < 0) {
+          value = 10;
+        }
+        // both valueY and workingValueY should be changed, we only animate workingValueY
+        dataItem.set("valueY", value);
+        dataItem.animate({
+          key: "valueYWorking",
+          to: value,
+          duration: 600,
+          easing: am5.ease.out(am5.ease.cubic)
+        });
+      })
+    
+      sortCategoryAxis();
+    }
+    
+    
+    // Get series item by category
+    function getSeriesItem(category) {
+      for (var i = 0; i < series.dataItems.length; i++) {
+        var dataItem = series.dataItems[i];
+        if (dataItem.get("categoryX") == category) {
+          return dataItem;
+        }
+      }
+    }
+    
+    
+    // Axis sorting
+    function sortCategoryAxis() {
+    
+      // Sort by value
+      series.dataItems.sort(function (x, y) {
+        return y.get("valueY") - x.get("valueY"); // descending
+        //return y.get("valueY") - x.get("valueY"); // ascending
+      })
+    
+      // Go through each axis item
+      am5.array.each(xAxis.dataItems, function (dataItem) {
+        // get corresponding series item
+        var seriesDataItem = getSeriesItem(dataItem.get("category"));
+    
+        if (seriesDataItem) {
+          // get index of series data item
+          var index = series.dataItems.indexOf(seriesDataItem);
+          // calculate delta position
+          var deltaPosition = (index - dataItem.get("index", 0)) / series.dataItems.length;
+          // set index to be the same as series data item index
+          dataItem.set("index", index);
+          // set deltaPosition instanlty
+          dataItem.set("deltaPosition", -deltaPosition);
+          // animate delta position to 0
+          dataItem.animate({
+            key: "deltaPosition",
+            to: 0,
+            duration: 1000,
+            easing: am5.ease.out(am5.ease.cubic)
+          })
+        }
+      });
+    
+      // Sort axis items by index.
+      // This changes the order instantly, but as deltaPosition is set,
+      // they keep in the same places and then animate to true positions.
+      xAxis.dataItems.sort(function (x, y) {
+        return x.get("index") - y.get("index");
+      });
+    }
+    
+    
+    // Make stuff animate on load
+    // https://www.amcharts.com/docs/v5/concepts/animations/
+    series.appear(1000);
+    chart.appear(1000, 100);
+    
+    }); // end am5.ready()
+    </script>
+    
+    <!-- HTML -->
+    <div id="chartdiv"></div>
+        </div>
+        <!-- <div class="row">
+        <div class="col-xl-8 col-lg-12">
+            <div class="card mb-4">
+                <article class="card-body">
+                    <h5 class="card-title">Sale statistics</h5>
+                    <canvas id="myChart" height="120px"></canvas>
+                </article>
+            </div>
+            <div class="row">
+                <div class="col-lg-5">
+                    <div class="card mb-4">
+                       
+                    </div>
+                </div> -->
+
+
+        <!-- <div class="col-lg-7">
+                    <div class="card mb-4">
+
+
+<article class="card-body">
+                    <h5 class="card-title">Marketing Chanel</h5>
+                    <span class="text-muted font-xs">Facebook</span>
+                    <div class="progress mb-3">
+                        <div class="progress-bar" role="progressbar" style="width: 15%">15%</div>
+                    </div>
+                    <span class="text-muted font-xs">Instagram</span>
+                    <div class="progress mb-3">
+                        <div class="progress-bar" role="progressbar" style="width: 65%">65% </div>
+                    </div>
+                    <span class="text-muted font-xs">Google</span>
+                    <div class="progress mb-3">
+                        <div class="progress-bar" role="progressbar" style="width: 51%"> 51% </div>
+                    </div>
+                    <span class="text-muted font-xs">Twitter</span>
+                    <div class="progress mb-3">
+                        <div class="progress-bar" role="progressbar" style="width: 80%"> 80%</div>
+                    </div>
+                    <span class="text-muted font-xs">Other</span>
+                    <div class="progress mb-3">
+                        <div class="progress-bar" role="progressbar" style="width: 80%"> 80%</div>
+                    </div>
+                </article>
+
+                       
+                    </div>
+                </div> -->
+        </div>
+        </div>
+
+
+
+        <div class="col-xl-4 col-lg-12">
+            <div class="card mb-4">
+                <!-- <article class="card-body">
+                    <h5 class="card-title">Payment methods</h5>
+                    <canvas id="myChart2" height="217"></canvas>
+                </article> -->
+
+                <article class="card-body">
+                    <h5 class="card-title">Payment Mode</h5>
+                    <span class="text-muted font-xs">Cash On Delivery</span>
+                    <div class="progress mb-3">
+
+                        <div class="progress-bar" role="progressbar" style="width: =cod  %">
+                            <%= codCount %>
+                        </div>
+
+                    </div>
+                    <span class="text-muted font-xs">Online Payment</span>
+                    <div class="progress mb-3">
+                        <div class="progress-bar" role="progressbar" style="width:  =online  %">
+                            <%= onlinePaymentsCount %>
+                        </div>
+                    </div>
+
+                    <span class="text-muted font-xs">Wallet</span>
+                    <div class="progress mb-3">
+                        <div class="progress-bar" role="progressbar" style="width:  =online  %">
+                            <%= walletCount %>
+                        </div>
+                    </div>
+
+                </article>
+            </div>
+
+        </div>
+        <canvas id="chartData" style="display: none;" data-monthly=" =data1   ">
+
+        </canvas>
+
+    </section>
+
+    <%-include('../layouts/adminFooter')%>

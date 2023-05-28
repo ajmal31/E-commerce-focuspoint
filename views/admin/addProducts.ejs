@@ -1,0 +1,138 @@
+<%-include('../layouts/admin-header')%>
+
+
+    <section class="content-main">
+        <form action="/admin/addProduct" method="post" enctype="multipart/form-data">
+            <!-- enctype="multipart/form-data" -->
+            <div class="row">
+                <div class="col-9">
+                    <div class="content-header">
+                        <h2 class="content-title">Add New Product</h2>
+                        <div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h4>Basic</h4>
+                        </div>
+                        <div class="card-body">
+
+                            <div class="mb-4">
+                                <label for="product_name" class="form-label">Product title</label>
+
+                                <input type="text" placeholder="Title" class="form-control" name="title">
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label">Full description</label>
+                                <textarea name="description" placeholder="Description" class="form-control"
+                                    rows="4"></textarea>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="mb-4">
+                                        <label class="form-label">Price</label>
+                                        <div class="row gx-2">
+                                            <input placeholder="₹" type="number" name="price" class="form-control">
+                                        </div>
+                                        <br>
+                                        <label class="form-label">Quantity</label>
+                                        <div class="row gx-2">
+                                            <input placeholder="" type="number" name="quantity" class="form-control">
+                                        </div>
+                                        <br>
+                                        <label class="form-label"  >Category</label>
+                                            
+                                        <select class="form-select" name="category" >
+                                            <% data.forEach(element => { %>
+                                            <option value="<%=element.name%>"><%=element.name%></option>
+                                            <% }) %>
+                                          
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-md rounded font-sm hover-up">Add</button>
+                        </div>
+                    </div> <!-- card end// -->
+                </div>
+                <div class="col-lg-3">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h4>Media</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="input-upload">
+                                <img src="/admin-assets/imgs/theme/upload.svg" style="height:3cm;" id="img1" alt="img">
+                                <!-- <input class="form-control" name="image1" type="file" multiple> -->
+                            </div>
+                        </div>
+                    </div> <!-- card end// -->
+
+                    <!-- card end// -->
+
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h4>Media</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="input-upload">
+                                <img src="/admin-assets/imgs/theme/upload.svg" style="height:3cm;" width="500px"  alt="img" id="img2">
+                                <!-- <input class="form-control" onchange="function5(event)"  name="images" type="file" multiple required> -->
+
+                            </div>
+                        </div>
+                    </div>
+                    <input class="form-control" onchange="function5(event)" name="images" type="file" multiple required>
+
+                </div>
+                <div class="col-lg-3">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h4>Media</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="input-upload">
+                                <img src="/admin-assets/imgs/theme/upload.svg" style="height:3cm;" id="img3" alt="img">
+                                <!-- <input class="form-control" name="image3" type="file" multiple> -->
+                            </div>
+                        </div>
+                    </div> <!-- card end// -->
+
+                    <!-- card end// -->
+
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h4>Media</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="input-upload">
+                                <img src="/admin-assets/imgs/theme/upload.svg" style="height:3cm;" id="img4" alt="img">
+                                <!-- <input class="form-control" name="image4" type="file" multiple> -->
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+
+
+            </div>
+        </form>
+
+    </section>
+    <script>
+        function function5(event){
+            document.getElementById('img1').src=URL.createObjectURL(event.target.files[0] )
+            document.getElementById('img2').src=URL.createObjectURL(event.target.files[1])
+          document.getElementById('img3').src=URL.createObjectURL(event.target.files[2])
+          document.getElementById('img4').src=URL.createObjectURL(event.target.files[3])
+         
+        }
+    </script>
+ <%-include('../layouts/adminFooter')%>

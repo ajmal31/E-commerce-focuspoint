@@ -1,0 +1,236 @@
+<br>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+    <meta charset="utf-8">
+    <title>GUN RACE</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="">
+    <meta property="og:image" content=""> 
+    <!-- Favicon -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/imgs/theme/logo.svg">
+    <link rel="stylesheet" href="/assets/css/main.css">
+  
+</head>    
+
+
+
+    <header class="header-area header-style-4 header-height-2">
+        <div class="header-top header-top-ptb-1 d-none d-lg-block">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-xl-3 col-lg-4">
+                        <div class="header-info">
+                            <ul>
+                                <li><i class="fi-rs-smartphone"></i> <a href="#">(+01) - 2345 - 6789</a></li>
+                                <li><i class="fi-rs-marker"></i><a href="page-contact.html">Our location</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-4">
+                        <div class="text-center">
+
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-4">
+                        <div class="header-info header-info-right">
+                            <ul>
+                                <li>
+                                    <a class="language-dropdown-active" href="#"> <i class="fi-rs-world"></i> English <i
+                                            class="fi-rs-angle-small-down"></i></a>
+                                    <ul class="language-dropdown">
+                                        <li><a href="#"><img src="/assets/imgs/theme/flag-fr.png" alt="">Français</a>
+                                        </li>
+                                        <li><a href="#"><img src="/assets/imgs/theme/flag-dt.png" alt="">Deutsch</a>
+                                        </li>
+                                        <li><a href="#"><img src="/assets/imgs/theme/flag-ru.png" alt="">Pусский</a>
+                                        </li>
+                                    </ul>
+                                
+                                <!-- <li><a href="/logout">Logout <i class="ri-logout-box-r-line"></i></a></li> -->
+
+                                <% if (userdata) { %>
+                                    <li><i class="fi-rs-user"></i><a href="/userProfile"><%=userdata.username %></a>
+                                    </li>
+                                    <li>
+                                        <i class="fi-rs-user"></i>
+                                         
+                                          <a href="/logout">|&nbsp;Logout</a>    
+                                      </li>
+                                      <% } else { %>
+                                        <li>
+                                            <i class="fi-rs-user"></i>
+                                              <a href="/login">|&nbsp;Login</a>
+                                                 
+                                          </li>
+                                <% } %>
+                               <!-- login modal -->
+                              
+                                  
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="header-middle header-middle-ptb-1 d-none d-lg-block">
+            <div class="container">
+                <!-- correctin start -->
+                <div class="header-wrap">
+                    <div class="logo logo-width-1"> 
+                        <!-- logo -->
+                        <a href="/"><img src="https://www.logolynx.com/images/logolynx/9d/9d2359e45acfa89a0d7f200dcf1a9c76.jpeg"alt="logo"></a> 
+                        <!-- <a href="/"><img src="https://i.iheart.com/v3/catalog/album/158629020?ops=fit(480%2C480)"alt="logo"></a> -->
+
+                     </div>
+                    <div class="header-right">
+                        <div class="search-style-2">
+                            <form action="#">
+                                <!-- <select class="select-active">
+                                    <option>All Categories</option>
+                                    <option><SMall>Wi-Fi pentesting</SMall></option>
+                                    <option><small>Hotplugs</small></option>
+                                    <option><small>Implants&Remote Access</small></option>
+
+                                </select> -->
+                                <input type="text" placeholder="Search for items...">
+                            </form>
+                        </div>
+                        <div class="header-action-right">
+                            <div class="header-action-2">
+                                <div class="header-action-icon-2">
+                                    <a href="/getAllwishlistProducts" >
+                                        <img class="svgInject" alt="Evara"
+                                            src="/assets/imgs/theme/icons/icon-heart.svg">
+                                    </a>
+                                </div>
+                                <div class="header-action-icon-2">
+                                    <a class="mini-cart-icon" href="/cart">
+                                        <img alt="Evara" src="/assets/imgs/theme/icons/icon-cart.svg"> 
+                                        <!-- <img alt="Evara" style="height: 50px ;width:100px;" src="data:image/jpeg;base64,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"> -->
+                                     </a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- carrect up -->
+            </div>
+        </div>
+        <div class="header-bottom header-bottom-bg-color sticky-bar">
+            <div class="container">
+                <div class="header-wrap header-space-between position-relative">
+                    <div class="logo logo-width-1 d-block d-lg-none">
+                        <a href="index.html"><img src="/assets/imgs/theme/logo.svg" alt="logo"></a>
+                    </div>
+                    <div class="header-nav d-none d-lg-flex">
+
+                        <div class="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block">
+                            <nav>
+                                <ul>
+                                    <li><a class="active" href="/">Home </a>
+
+                                    </li> 
+                                     <li>
+                                    <a href="/contact">About</a>
+                                </li> 
+                                    <li><a href="/getAllProducts">Shop</a>
+
+                                    </li>
+
+                                    <!-- <li>
+                                        <a href="/contact">Contact</a>
+                                    </li> -->
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="hotline d-none d-lg-block">
+                        <p><i class="fi-rs-headset"></i><span>Hotline</span> 1900 - 888 </p>
+                    </div>
+                    <p class="mobile-promotion">Happy <span class="text-brand">Mother's Day</span>. Big Sale Up to 40%
+                    </p>
+                    <div class="header-action-right d-block d-lg-none">
+                        <div class="header-action-2">
+                            <div class="header-action-icon-2">
+                                <a href="/wishList">
+                                    <img alt="Evara" src="assets/imgs/theme/icons/icon-heart.svg">
+                                    <span class="pro-count white">4</span>
+                                </a>
+                            </div>
+                            <div class="header-action-icon-2">
+                                <a class="mini-cart-icon" href="/cart">
+                                    <img alt="Evara" src="assets/imgs/theme/icons/icon-cart.svg">
+                                    <span class="pro-count white">2</span>
+                                </a>
+                                <div class="cart-dropdown-wrap cart-dropdown-hm2">
+                                    <ul>
+                                        <li>
+                                            <div class="shopping-cart-img">
+                                                <a href="shop-product-right.html"><img alt="Evara"
+                                                        src="assets/imgs/shop/thumbnail-3.jpg"></a>
+                                            </div>
+                                            <div class="shopping-cart-title">
+                                                <h4><a href="shop-product-right.html">Plain Striola Shirts</a></h4>
+                                                <h3><span>1 × </span>$800.00</h3>
+                                            </div>
+                                            <div class="shopping-cart-delete">
+                                                <a href="#"><i class="fi-rs-cross-small"></i></a>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="shopping-cart-img">
+                                                <a href="shop-product-right.html"><img alt="Evara"
+                                                        src="assets/imgs/shop/thumbnail-4.jpg"></a>
+                                            </div>
+                                            <div class="shopping-cart-title">
+                                                <h4><a href="shop-product-right.html">Macbook Pro 2022</a></h4>
+                                                <h3><span>1 × </span>$3500.00</h3>
+                                            </div>
+                                            <div class="shopping-cart-delete">
+                                                <a href="#"><i class="fi-rs-cross-small"></i></a>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <div class="shopping-cart-footer">
+                                        <div class="shopping-cart-total">
+                                            <h4>Total <span>$383.00</span></h4>
+                                        </div>
+                                        <div class="shopping-cart-button">
+                                            <a href="/cart">View cart</a>
+                                            <a href="/wishlist">Checkout</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="header-action-icon-2 d-block d-lg-none">
+                                <div class="burger-icon burger-icon-white">
+                                    <span class="burger-icon-top"></span>
+                                    <span class="burger-icon-mid"></span>
+                                    <span class="burger-icon-bottom"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </header> 
+    
+    
+    

@@ -1,0 +1,58 @@
+<%- include('../layouts/admin-header') %>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<script>
+var $j = jQuery.noConflict();
+$j(document).ready(function() {
+  $j('#ordersTable').DataTable();
+});
+</script>
+
+<section style="margin-top: 60px; margin-bottom: 60px;">
+    <div class="container">
+      <table class="table mt-5" id="ordersTable" style="border-collapse: collapse;">
+        <thead>
+          <tr>
+            <th scope="col">Order</th>
+            
+            <th scope="col">Date</th>
+            <th scope="col">Payment</th>
+            <th scope="col">paymentStatus</th>
+            <th scope="col">OrderStatus</th>
+            <th scope="col">Total</th>
+            <th scope="col" style="text-align: end;">Actions</th>
+          </tr>
+        </thead>
+        <tbody> 
+          <% allOrders.forEach(element => { %>
+            <% let date=element.date+'' %>
+            <tr>
+              <td><%= element._id %></td>
+             
+              <td><%= date.substring(0,16)%></td>
+              <td><%= element.payment_method %></td>
+              <td><%= element.payment_status %></td>
+              <td><%= element.order_status %></td>
+              <td>₹<%= element.total_amount %></td>
+              
+                <td>
+                    <a href="/admin/viewMore/<%= element._id %>" class="btn btn-primary"   style="background-color: mediumblue; border: none; border-radius: 20px; padding: 6px 18px; color: whitesmoke; font-size: 15px;">ViewMore</a>
+
+                 </td> 
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <script>
+    var $j = jQuery.noConflict();
+$j(document).ready(function() {
+  $j('#ordersTable').DataTable();
+});
+
+  </script>
+
+<%-include('../layouts/adminFooter')%>

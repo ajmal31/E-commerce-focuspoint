@@ -1,0 +1,257 @@
+<%- include('../layouts/user-header') %>
+
+    <section class="home-slider position-relative mb-30">
+        <!-- <img src="https://imgeng.jagran.com/images/2023/mar/Counter%20Strike%2021678103991466.0.jpg" alt=""> -->
+        <div class="container">
+            <div class="home-slide-cover bg-grey-10 mt-30">
+                <div class="hero-slider-1 style-4 dot-style-1 dot-style-1-position-1">
+                    <div class="single-hero-slider single-animation-wrap">
+                        <div class="container">
+                            <div class="row align-items-center slider-animated-1">
+                                <div class="col-lg-6 col-md-7">
+                                    <div class="hero-slider-content-2">
+                                        <h3 class="animated fw-900 text-brand">FOCUS YOUR DESTINATION</h3>
+                                         
+                                        <p class="animated">A gun shop is a retail store that sells firearms,
+                                            ammunition, and related accessories. They may also offer services such as
+                                            gun repair, shooting range rentals, and firearm training classes.</p>
+                                        <a class="animated btn btn-brush btn-brush-3"
+                                            href="/getAllproducts" tabindex="0"> Shop Now </a>
+
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-5">
+                                    <div class="single-slider-img single-slider-img-1">
+                                        <!-- <img class="animated mt-5 i " src="https://imgeng.jagran.com/images/2023/mar/Counter%20Strike%2021678103991466.0.jpg" alt=""> -->
+                                        <img class="animated mt-5 i " src="" alt="">
+
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="single-hero-slider single-animation-wrap">
+                        <div class="container">
+                            <div class="row align-items-center slider-animated-1">
+                                <div class="col-lg-6 col-md-7">
+                                    <div class="hero-slider-content-2">
+                                        <h3 class="animated fw-900 text-brand">EXITING GUNS WAITING FOR YOU</h3>
+
+                                        <p class="animated">Save more with GIFT CARDS & up to 30% off</p>
+
+                                        <p class="animated">Receive an immediate, transferrable code by email.</p>
+                                        <a class="animated btn btn-brush btn-brush-1" href="shop-product-right.html"
+                                            tabindex="0"> Get It Now </a>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-5">
+                                    <div class="single-slider-img single-slider-img-1">
+                                        <img class="animated" src="/assets/imgs/slider/cardnew1.png" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slider-arrow hero-slider-1-arrow"></div>
+            </div>
+        </div>
+    </section>
+
+
+
+<!-- -----------------------------------------------------------------------------------------testing------------------------------------------->
+<!-- <section class="home-slider position-relative mb-30">
+    <img src="" alt="">
+    <div class="container">
+        <div class="home-slide-cover bg-grey-10 mt-30">
+            <div class="hero-slider-1 style-4 dot-style-1 dot-style-1-position-1">
+                <div class="single-hero-slider single-animation-wrap">
+                    <div class="container">
+                        <div class="row align-items-center slider-animated-1">
+                            <div class="col-lg-6 col-md-7">
+                                <div class="hero-slider-content-2">
+                                    <h3 class="animated fw-900 text-brand"></h3>
+                                     
+                                    
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-5">
+                                <div class="single-slider-img single-slider-img-1">
+                                    <img class="animated mt-5 i " src="" alt="">
+
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="single-hero-slider single-animation-wrap">
+                    <img src="https://imgeng.jagran.com/images/2023/mar/Counter%20Strike%2021678103991466.0.jpg" alt="">
+                    <div class="container">
+                        <div class="row align-items-center slider-animated-1">
+                            <div class="col-lg-6 col-md-7">
+                                <div class="hero-slider-content-2">
+                                    <h3 class="animated fw-900 text-brand"></h3>
+
+                                    <p class="animated"></p>
+
+                                    <p class="animated"></p>
+                                    <a class="animated btn btn-brush btn-brush-1" href="shop-product-right.html"
+                                        tabindex="0"> </a>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-5">
+                                <div class="single-slider-img single-slider-img-1">
+                                    <img class="animated" src="/assets/imgs/slider/cardnew1.png" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slider-arrow hero-slider-1-arrow"></div>
+        </div>
+    </div>
+</section> -->
+
+
+
+    <section class="featured section-padding position-relative">
+        <div class="container">
+            <div class="row">
+
+                <% data.forEach(element=> { %>
+
+                    <div class="col-lg-2 col-md-4 mb-md-3 mb-lg-0">
+
+                        <div class="banner-features wow fadeIn animated hover-up">
+                            <a href="/shop/<%= element.name %>"> <img src="/images/<%= element.image %>" alt=""></a>
+                            <h4 class="bg-1">
+                                <%= element.name %>
+                            </h4>
+                        </div>
+
+                    </div>
+
+                    <% }) %>
+                        <!-- <div class="col-lg-2 col-md-4 mb-md-3 mb-lg-0">
+                    <div class="banner-features wow fadeIn animated hover-up">
+                        <img src="assets/imgs/theme/icons/feature-2.png" alt="">
+                        <h4 class="bg-3">Online Order</h4>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-md-3 mb-lg-0">
+                    <div class="banner-features wow fadeIn animated hover-up">
+                        <img src="assets/imgs/theme/icons/feature-3.png" alt="">
+                        <h4 class="bg-2">Save Money</h4>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-md-3 mb-lg-0">
+                    <div class="banner-features wow fadeIn animated hover-up">
+                        <img src="assets/imgs/theme/icons/feature-4.png" alt="">
+                        <h4 class="bg-4">Promotions</h4>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-md-3 mb-lg-0">
+                    <div class="banner-features wow fadeIn animated hover-up">
+                        <img src="assets/imgs/theme/icons/feature-5.png" alt="">
+                        <h4 class="bg-5">Happy Sell</h4>
+                    </div>
+                </div> -->
+                        <!-- <div class="col-lg-2 col-md-4 mb-md-3 mb-lg-0">
+                    <div class="banner-features wow fadeIn animated hover-up">
+                        <img src="assets/imgs/theme/icons/feature-6.png" alt="">
+                        <h4 class="bg-6">24/7 Support</h4>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+
+    </section>
+
+
+
+
+
+    <!-- <div class="container">
+
+        <div class="tab-header">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="nav-tab-one" data-bs-toggle="tab" data-bs-target="#tab-one"
+                        type="button" role="tab" aria-controls="tab-one" aria-selected="true">Featured</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="nav-tab-two" data-bs-toggle="tab" data-bs-target="#tab-two"
+                        type="button" role="tab" aria-controls="tab-two" aria-selected="false">Popular</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="nav-tab-three" data-bs-toggle="tab" data-bs-target="#tab-three"
+                        type="button" role="tab" aria-controls="tab-three" aria-selected="false">New added</button>
+                </li>
+            </ul>
+            <a href="#" class="view-more d-none d-md-flex">View More<i class="fi-rs-angle-double-small-right"></i></a>
+        </div>
+    </div>
+    </div> -->
+    <!-- <div class="container">
+        <div class="tab-content wow fadeIn animated" id="myTabContent">
+            <div class="tab-pane fade show active" id="tab-one" role="tabpanel" aria-labelledby="tab-one">
+
+                <div class="row product-grid-4">
+
+                    <div class="col-lg-3 col-md-3 col-12 col-sm-6 mb-3">
+
+                        <div class="product-cart-wrap">
+
+                            <div class="product-img-action-wrap">
+                                <div class="product-img product-img-zoom" style="height: 5cm;">
+                                    <a href="">
+                                        <img class="default-img" src="#" alt="">
+                                        <img class="hover-img" src="#" alt="">
+                                    </a>
+                                </div>
+
+                            </div>
+                            <div class="product-content-wrap" style="height: 5cm;">
+                                <div class="product-category">
+                                    <a href="">
+                                        title
+                                    </a>
+                                    <h2><a href="#">
+                                            category
+                                        </a></h2>
+                                </div>
+                                <h4><a href="#">
+                                        description
+                                    </a></h4>
+
+                                <div class="rating-result" title="90%">
+                                    <span>
+                                        <span>86%</span>
+                                    </span>
+                                </div>
+
+                                <div class="product-price">
+                                    <span style="color: green;">
+                                        price
+                                    </span>
+                                    <span class="old-price">$245.8</span> -->
+                                    <!-- <span style="color: green;">$2465</span> -->
+                                <!-- </div>
+                                <div class="product-action-1 show">
+                                    <a aria-label="Add To Cart" class="action-btn hover-up" href="#"><i
+                                            class="fi-rs-shopping-bag-add"></i></a>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div> -->
+
+
+                    <%- include('../layouts/user-footer') %>

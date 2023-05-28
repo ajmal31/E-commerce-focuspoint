@@ -1,0 +1,143 @@
+
+
+
+
+<!--  -->
+<%- include('../layouts/admin-header') %>
+
+<section class="content-main">
+  <div class="content-header">
+    <div>
+      <h2 class="content-title card-title">Coupons</h2>
+      <p>Add, edit or delete a Coupon</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-3">
+          <form action="/admin/premiumAddCoupon" method="post">
+            <div class="mb-4">
+              <label class="form-label">Coupon Code</label>
+              <input type="text" placeholder="Enter here" id="name" class="form-control" name="couponCode" required />
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label">Discount%</label>
+              <input type="number" placeholder="Enter here" id="name" class="form-control" name="discount" required />
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label">Limit Amount</label>
+              <input type="number" placeholder="Enter here" id="name" class="form-control" name="limitAmount" required />
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label">Minimum Amount</label>
+              <input type="number" placeholder="Enter here" id="name" class="form-control" name="minimumPurchasingAmount" required />
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label">Expiry Date</label>
+              <input type="date" placeholder="Enter here" id="name" class="form-control" name="expiryDate" required />
+            </div>
+
+            <div class="mb-4">
+              <label for="category">Category:</label>
+              <select class="form-control" id="category">
+                <% response.forEach(element => { %>
+                  <option value="<%= element.value %>"><%= element.name %></option>
+                <% }) %>
+              </select>
+            </div>
+            <div class="mb-4">
+              <label for="category">Category:</label>
+              <select class="form-control" id="category">
+                <% allProductsName.forEach(element => { %>
+                  <option value="<%= element.value %>"><%= element %></option>
+                <% }) %>
+              </select>
+            </div>
+            
+            
+
+            <div class="d-grid">
+              <button class="btn btn-primary" id="btn" type="submit">Add Coupon</button>
+            </div>
+          </form>
+        </div>
+        <div class="col-md-9">
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Coupon Code</th>
+                  <th>Discount%</th>
+                  <th>Limit Amount</th>
+                  <th>Minimum Amount</th>
+                  <th>Expiry Date</th>
+                  <th class="text-center" colspan="2">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- coupons.forEach(element => { -->
+                <!-- let x = 1   -->
+                <!-- let date = element.expire+""  -->
+                <tr>
+                  <td>x++</td>
+                  <td>code</td>
+                  <td>discount</td>
+                  <td>limit</td>
+                  <td>min</td>
+                  <td>dontknow</td>
+                  <td>
+                                        
+                    <a href="/admin/deletecoupon/" onclick="return confirm('Are you sure you want to delete this coupon? Click ok to confirm');" class="btn bg-danger"  ><i class="ri-delete-bin-5-line"></i></a>
+                </td>
+             
+           
+                
+            </tr>
+          
+             <!-- })  -->
+          
+           
+          
+           
+          
+           
+         
+        </tbody>
+    </table>
+   
+</div>
+</div> <!-- .col// -->
+</div> <!-- .row // -->
+</div> <!-- card body .// -->
+</div> <!-- card .// -->
+</section>
+
+
+
+<script>
+document.getElementById('btn').onclick = ()=>{
+let name = document.getElementById('name').value
+document.getElementById('name').value = name.trim()
+
+let des = document.getElementById('des').value
+document.getElementById('des').value = des.trim()
+}
+</script>
+<script>
+function hide(id){
+setTimeout(()=>{
+document.getElementById(id).style.display = "none"
+},1300)
+}
+
+hide('alert')
+</script>
+
+<%-include('../layouts/adminFooter')%>
+               

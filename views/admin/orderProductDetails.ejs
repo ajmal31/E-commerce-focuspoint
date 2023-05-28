@@ -1,0 +1,94 @@
+<%- include('../layouts/admin-header') %>
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-lg-6 mb-3 mb-lg-0">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="mb-0">Address</h5>
+        </div>
+        <div class="card-body">
+          <p></p>
+          <address></address>
+          <p>Name:&nbsp;<%= address.name %> </p>
+          <p>Address:&nbsp;<%= address.address %> </p>
+          <p>State:&nbsp;<%= address.state %> </p>
+          <p>Pincode:&nbsp;<%= address.country %> </p>
+          <p>Pincode:&nbsp;<%= address.pincode %> </p>
+          <p>Phone:&nbsp;<%= address.phone %></p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-lg-6">
+     <form action="/admin/changeOrderStatus/<%= id %>" method="post" >
+
+
+        <div class="card">
+          <div class="card-header">
+            
+            <h5 class="mb-0" name >Order Status Changer</h5>
+          </div>
+          <div class="card-body">
+            <div class="status-changer">
+              <select class="form-select" name="status">
+             
+                <option value="pending">Pending</option>
+                <option value="processing">Processing</option>
+                <option value="shipped">Shipped</option>
+                <option value="delivered">Delivered</option>
+                <option value="returnConfirmed">returnConfirmed</option>
+              </select>
+              <button type="submit" class="btn  btn-primary mt-3" >Confirm</button>
+            </div>
+          </div>
+        
+        </div>
+    </form>
+
+
+      </div>
+   
+      
+  </div>
+</div>
+
+<section class="mt-5 mb-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="table-responsive">
+          <table class="table shopping-summery text-center clean">
+            <thead>
+              <tr class="main-heading">
+                <th scope="col">Image</th>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Subtotal</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% products.forEach(element=> { %>
+              <% let price=Number(element.products.price) %>
+              <% let subtotal=price*element.quantity %>
+              <tr>
+                <td class="image"><img style="height: 50px; width: 50px;" src="/images/<%= element.products.image[0] %>" alt="#"></td>
+                <td class="product-des">
+                  <h5 class="product-name"><a href="/ "></a><%= element.products.title %></h5>
+                </td>
+                <td class="price" data-title="Price">
+                  <p id="price">₹<%= element.products.price %></p>
+                </td>
+                <td class="qty" data-title="qty">
+                  <p id="qty"><%= element.quantity %></p>
+                </td>
+                <td class="qty" data-title="qty">
+                  <p id="qty">₹<%= subtotal %></p>
+                </td>
+              <% }) %>
+            </tbody>
+          </table>
+          <div style="text-align: right; padding-right: 100px;">
+            <h4 style="color: green;">Total: <%= total %></h4>
+              <%-include('../layouts/adminFooter')%>
