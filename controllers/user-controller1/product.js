@@ -59,7 +59,7 @@ module.exports={
         adminHelpers.getAllProducts().then((response) => {
             if (response) {
                 let userdata = req.session.userDetails
-                res.render('user/ViewFullProducts', { response, userdata })
+                res.render('user/viewFullProducts', { response, userdata })
             }
         })
     },
