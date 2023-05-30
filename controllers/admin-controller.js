@@ -362,7 +362,7 @@ module.exports = {
 
     adminHelpers.getAllProducts().then((allProducts) => {
 
-      res.render('admin/listingProducts-offer', { allProducts })
+      res.render('admin/listingproducts-offer', { allProducts })
     })
   },
   getMakeOffer: (req, res) => {
