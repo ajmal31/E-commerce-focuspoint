@@ -1,5 +1,5 @@
 module.exports={
-    db_name:'GUN_RACE',
+    db_name:'focuspoint-shop',
     userCollection:'users1',
     adminCollection:'admin',
     productCollection:'guns',

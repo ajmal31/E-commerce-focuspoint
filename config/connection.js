@@ -5,7 +5,8 @@ const MongoClient=require('mongodb').MongoClient
  }
 
  module.exports.connect=function(done){
-     const url ='mongodb://0.0.0.0:27017'
+    //  const url ='mongodb://0.0.0.0:27017'
+    const url="mongodb+srv://ajmalmuhammed846:ajuZ3216@cluster0.uzyffxb.mongodb.net/?retryWrites=true&w=majority"
     //  console.log('reach ')
      MongoClient.connect(url,(err,data)=>{
       console.log('reach ')
